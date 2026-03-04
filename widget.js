@@ -1,10 +1,10 @@
 (function() {
     const CHAT_URL = "https://x10aistudio.github.io/edc/";
     
-    // 1. Updated Logo to the Tooth SVG
+    // Updated to your new Star/Spiral SVG
     const LOGO = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#333" viewBox="0 0 256 256">
-            <path d="M171,71.42,149.54,80,171,88.57A8,8,0,1,1,165,103.42L128,88.61,91,103.42A8,8,0,1,1,85,88.57L106.46,80,85,71.42A8,8,0,1,1,91,56.57l37,14.81,37-14.81A8,8,0,1,1,171,71.42Zm53,8.33c0,42.72-8,75.4-14.69,95.28-8.73,25.8-20.63,45.49-32.65,54a15.69,15.69,0,0,1-15.95,1.41,16.09,16.09,0,0,1-9.18-13.36C150.68,205.58,146.48,168,128,168s-22.68,37.59-23.53,49.11a16.09,16.09,0,0,1-16,14.9,15.67,15.67,0,0,1-9.13-2.95c-12-8.53-23.92-28.22-32.65-54C40,155.15,32,122.47,32,79.75A56,56,0,0,1,88,24h80A56,56,0,0,1,224,79.75Zm-16,0A40,40,0,0,0,168,40H88A40,40,0,0,0,48,79.76c0,40.55,7.51,71.4,13.85,90.14,11.05,32.66,23,43.37,26.61,46C91.57,174.67,105.59,152,128,152s36.45,22.71,39.49,63.94h0c3.6-2.59,15.57-13.26,26.66-46C200.49,151.16,208,120.31,208,79.76Z"></path>
+        <svg id="glowry-spiral-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#333" viewBox="0 0 256 256">
+            <path d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z"></path>
         </svg>
     `;
 
@@ -19,18 +19,28 @@
                 right: 24px;
                 width: 64px;
                 height: 64px;
-                background: #FFD7F2; /* 2. Changed from Orange to Pink */
+                background: #FFD7F2; 
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                /* 3. Updated shadow to match pink theme */
                 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
                 z-index: 2147483647;
                 transition: transform 0.2s ease;
             }
             #glowry-bubble:hover { transform: scale(1.08); }
+
+            /* SPIRAL ANIMATION */
+            #glowry-spiral-icon {
+                animation: spin 4s linear infinite;
+            }
+
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
             #glowry-win {
                 display: none;
                 position: fixed;
