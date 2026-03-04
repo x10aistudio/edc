@@ -3,207 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-* {
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    margin: 0;
-    padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    background: #fff;
+body{
+  background:#fff;
 }
 
-/* ===== Floating Button ===== */
-#chat-toggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: none;
-    background: #FFD7F2;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: 0.2s ease;
+/* ===============================
+   FLOATING BUTTON (แทนปุ่มส้มเดิม)
+=================================*/
+#chat-toggle{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  border:none;
+  background:#FFD7F2;
+  box-shadow:0 10px 25px rgba(0,0,0,0.18);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  transition:all .2s ease;
 }
 
-#chat-toggle:hover {
-    transform: scale(1.08);
+#chat-toggle:hover{
+  transform:scale(1.08);
 }
 
-/* ===== Chat Window ===== */
-#chat-box {
-    position: fixed;
-    bottom: 100px;
-    right: 24px;
-    width: 360px;
-    height: 520px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9998;
+/* ===============================
+   CHAT PANEL
+=================================*/
+#chat-box{
+  position:fixed;
+  bottom:110px;
+  right:24px;
+  width:360px;
+  height:540px;
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.18);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:99998;
 }
 
-/* ===== Header ===== */
-#head {
-    background: #FFD7F2;
-    padding: 16px 20px;
-    color: #333;
-    font-weight: bold;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
+/* ===============================
+   HEADER (แก้ปัญหาหาย)
+=================================*/
+#head{
+  background:#FFD7F2;
+  color:#333;
+  padding:18px 20px;
+  font-weight:600;
+  font-size:16px;
+  display:flex;
+  align-items:center;
 }
 
-#close-btn {
-    margin-left: auto;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+#close-btn{
+  margin-left:auto;
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
 }
 
-/* ===== Messages ===== */
-#msgs {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    background: #fafafa;
+/* ===============================
+   MESSAGE AREA
+=================================*/
+#msgs{
+  flex:1;
+  padding:18px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  background:#fafafa;
 }
 
-.msg {
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 14px;
-    max-width: 80%;
-    white-space: pre-wrap;
-    line-height: 1.6;
+.msg{
+  padding:12px 16px;
+  border-radius:18px;
+  font-size:14px;
+  max-width:80%;
+  line-height:1.6;
+  white-space:pre-wrap;
 }
 
-.user {
-    background: #FFD7F2;
-    color: #333;
-    align-self: flex-end;
-    border-bottom-right-radius: 6px;
+.user{
+  background:#FFD7F2;
+  color:#333;
+  align-self:flex-end;
+  border-bottom-right-radius:6px;
 }
 
-.ai {
-    background: #fff;
-    color: #333;
-    align-self: flex-start;
-    border-bottom-left-radius: 6px;
-    border: 1px solid #eee;
+.ai{
+  background:#fff;
+  border:1px solid #eee;
+  align-self:flex-start;
+  border-bottom-left-radius:6px;
 }
 
-/* ===== Input ===== */
-#input-area {
-    padding: 14px;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 10px;
-    background: white;
+/* ===============================
+   INPUT AREA
+=================================*/
+#input-area{
+  padding:14px;
+  border-top:1px solid #eee;
+  display:flex;
+  gap:10px;
+  background:#fff;
 }
 
-input#in {
-    flex: 1;
-    border: 1px solid #eee;
-    padding: 12px 14px;
-    border-radius: 14px;
-    outline: none;
-    font-size: 14px;
-    background: #f5f5f5;
+#in{
+  flex:1;
+  border:1px solid #eee;
+  padding:12px 14px;
+  border-radius:14px;
+  outline:none;
+  font-size:14px;
+  background:#f5f5f5;
 }
 
-input#in:focus {
-    border-color: #FFD7F2;
-    background: #fff;
+#in:focus{
+  border-color:#FFD7F2;
+  background:#fff;
 }
 
-button#btn {
-    background: #FFD7F2;
-    color: #333;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 14px;
-    cursor: pointer;
-    font-weight: bold;
+#btn{
+  background:#FFD7F2;
+  border:none;
+  padding:12px 18px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:600;
+  color:#333;
 }
 
-/* ===== Loading Dots ===== */
-.dots {
-    display: flex;
-    gap: 6px;
-    padding: 12px 16px;
-    align-self: flex-start;
+/* ===============================
+   LOADING DOT
+=================================*/
+.dots{
+  display:flex;
+  gap:6px;
 }
 
-.dot {
-    width: 8px;
-    height: 8px;
-    background: #FFD7F2;
-    border-radius: 50%;
-    animation: bounce 1.4s infinite ease-in-out both;
+.dot{
+  width:8px;
+  height:8px;
+  background:#FFD7F2;
+  border-radius:50%;
+  animation:bounce 1.4s infinite ease-in-out both;
 }
-.dot:nth-child(1){ animation-delay:-0.32s; }
-.dot:nth-child(2){ animation-delay:-0.16s; }
 
-@keyframes bounce {
-0%,80%,100%{ transform:scale(0.4); opacity:0.4;}
-40%{ transform:scale(1.0); opacity:1;}
+.dot:nth-child(1){animation-delay:-.32s;}
+.dot:nth-child(2){animation-delay:-.16s;}
+
+@keyframes bounce{
+0%,80%,100%{transform:scale(.4);opacity:.4;}
+40%{transform:scale(1);opacity:1;}
 }
 </style>
 </head>
 <body>
 
-<!-- Floating Chat Button -->
+<!-- FLOATING BUTTON -->
 <button id="chat-toggle">
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff" viewBox="0 0 256 256">
-<path d="M171,71.42,149.54,80,171,88.57A8,8,0,1,1,165,103.42L128,88.61,91,103.42A8,8,0,1,1,85,88.57L106.46,80,85,71.42A8,8,0,1,1,91,56.57l37,14.81,37-14.81A8,8,0,1,1,171,71.42Zm53,8.33c0,42.72-8,75.4-14.69,95.28-8.73,25.8-20.63,45.49-32.65,54a15.69,15.69,0,0,1-15.95,1.41,16.09,16.09,0,0,1-9.18-13.36C150.68,205.58,146.48,168,128,168s-22.68,37.59-23.53,49.11a16.09,16.09,0,0,1-16,14.9,15.67,15.67,0,0,1-9.13-2.95c-12-8.53-23.92-28.22-32.65-54C40,155.15,32,122.47,32,79.75A56,56,0,0,1,88,24h80A56,56,0,0,1,224,79.75Zm-16,0A40,40,0,0,0,168,40H88A40,40,0,0,0,48,79.76c0,40.55,7.51,71.4,13.85,90.14,11.05,32.66,23,43.37,26.61,46C91.57,174.67,105.59,152,128,152s36.45,22.71,39.49,63.94h0c3.6-2.59,15.57-13.26,26.66-46C200.49,151.16,208,120.31,208,79.76Z"/>
+<path d="M171,71.42,149.54,80,171,88.57A8,8,0,1,1,165,103.42L128,88.61,91,103.42A8,8,0,1,1,85,88.57L106.46,80,85,71.42A8,8,0,1,1,91,56.57l37,14.81,37-14.81A8,8,0,1,1,171,71.42Zm53,8.33c0,42.72-8,75.4-14.69,95.28-8.73,25.8-20.63,45.49-32.65,54a15.69,15.69,0,0,1-15.95,1.41,16.09,16.09,0,0,1-9.18-13.36C150.68,205.58,146.48,168,128,168s-22.68,37.59-23.53,49.11a16.09,16.09,0,0,1-16,14.9,15.67,15.67,0,0,1-9.13-2.95c-12-8.53-23.92-28.22-32.65-54C40,155.15,32,122.47,32,79.75A56,56,0,0,1,88,24h80A56,56,0,0,1,224,79.75Z"/>
 </svg>
 </button>
 
-<!-- Chat Box -->
+<!-- CHAT PANEL -->
 <div id="chat-box">
-<div id="head">
-EDC Clinic Assistant
-<button id="close-btn">✕</button>
-</div>
+  <div id="head">
+    EDC Clinic Assistant
+    <button id="close-btn">✕</button>
+  </div>
 
-<div id="msgs">
-<div class="msg ai">
+  <div id="msgs">
+    <div class="msg ai">
 สวัสดีค่ะ 👋 ยินดีต้อนรับสู่ EDC Clinic  
 สามารถสอบถามข้อมูลการรักษา นัดหมาย หรือรายละเอียดแพทย์ได้เลยค่ะ
-</div>
-</div>
+    </div>
+  </div>
 
-<div id="input-area">
-<input id="in" placeholder="พิมพ์ข้อความของคุณ..." autocomplete="off">
-<button id="btn">ส่ง</button>
-</div>
+  <div id="input-area">
+    <input id="in" placeholder="พิมพ์ข้อความของคุณ...">
+    <button id="btn">ส่ง</button>
+  </div>
 </div>
 
 <script>
-const chatToggle = document.getElementById('chat-toggle');
-const chatBox = document.getElementById('chat-box');
+const toggle = document.getElementById('chat-toggle');
+const box = document.getElementById('chat-box');
 const closeBtn = document.getElementById('close-btn');
 
-chatToggle.onclick = () => chatBox.style.display = "flex";
-closeBtn.onclick = () => chatBox.style.display = "none";
+toggle.onclick = () => {
+  box.style.display = "flex";   // ทำให้ header แสดงแน่นอน
+}
+
+closeBtn.onclick = () => {
+  box.style.display = "none";
+}
 </script>
 
 </body>
