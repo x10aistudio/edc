@@ -7,39 +7,66 @@
 * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin:0; padding:0; }
 html, body { width:100%; height:100%; overflow:hidden; background:#fff; }
 #win { width:100%; height:100%; display:flex; flex-direction:column; }
+
+/* Header stays dark green to match your screenshot */
 #head { background:#0F766E; padding:16px 20px; color:white; font-weight:bold; font-size:16px; display:flex; align-items:center; }
+
 #msgs { flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:16px; background:#f8fafc; }
 .msg { padding:14px 18px; border-radius:20px; font-size:14px; max-width:85%; white-space:pre-wrap; line-height:1.6; }
+
+/* Chat bubbles for user match the clinic theme */
 .user { background:#0F766E; color:white; align-self:flex-end; border-bottom-right-radius:6px; }
 .ai { background:#fff; color:#333; align-self:flex-start; border-bottom-left-radius:4px; border:1px solid #eee; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
 
 #input-area { padding:16px 20px; border-top:1px solid #eee; display:flex; gap:12px; background:white; }
 input#in { flex:1; border:1px solid #eee; padding:14px 18px; border-radius:14px; outline:none; font-size:16px; background:#f5f5f5; }
-input#in:focus { border-color:#0F766E; background:#fff; }
-button#btn { background:#0F766E; color:white; border:none; padding:14px 24px; border-radius:14px; cursor:pointer; font-weight:bold; font-size:14px; }
+
+/* Change focus border to your requested pink */
+input#in:focus { border-color:#FFD7F2; background:#fff; }
+
+/* UPDATED: Button background changed to #FFD7F2 */
+button#btn { 
+    background:#FFD7F2; 
+    color:#333; /* Darker text for better readability on light pink */
+    border:none; 
+    padding:14px 24px; 
+    border-radius:14px; 
+    cursor:pointer; 
+    font-weight:bold; 
+    font-size:14px; 
+    transition: opacity 0.2s;
+}
+button#btn:hover { opacity: 0.8; }
 
 .dots { display:flex; gap:6px; padding:14px 18px; align-self:flex-start; background:#fff; border-radius:20px; border:1px solid #eee; }
 .dot { width:10px; height:10px; background:#0F766E; border-radius:50%; animation:bounce 1.4s infinite ease-in-out both; }
-.dot:nth-child(1){ animation-delay:-0.32s; }
-.dot:nth-child(2){ animation-delay:-0.16s; }
 
 @keyframes bounce{
-0%,80%,100%{ transform:scale(0.4); opacity:0.4;}
-40%{ transform:scale(1.0); opacity:1;}
+    0%,80%,100%{ transform:scale(0.4); opacity:0.4;}
+    40%{ transform:scale(1.0); opacity:1;}
 }
+
+/* Style for the SVG icon in the header */
+.header-icon { margin-right: 8px; display: flex; align-items: center; }
+.header-icon svg { fill: white; width: 24px; height: 24px; }
 </style>
 </head>
 <body>
 
 <div id="win">
 <div id="head">
-🦷 <span style="flex:1;">EDC Clinic Assistant</span>
-<button onclick="window.parent.postMessage('close-chat','*')" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">✕</button>
+    <div class="header-icon">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <path d="M171,71.42,149.54,80,171,88.57A8,8,0,1,1,165,103.42L128,88.61,91,103.42A8,8,0,1,1,85,88.57L106.46,80,85,71.42A8,8,0,1,1,91,56.57l37,14.81,37-14.81A8,8,0,1,1,171,71.42Zm53,8.33c0,42.72-8,75.4-14.69,95.28-8.73,25.8-20.63,45.49-32.65,54a15.69,15.69,0,0,1-15.95,1.41,16.09,16.09,0,0,1-9.18-13.36C150.68,205.58,146.48,168,128,168s-22.68,37.59-23.53,49.11a16.09,16.09,0,0,1-16,14.9,15.67,15.67,0,0,1-9.13-2.95c-12-8.53-23.92-28.22-32.65-54C40,155.15,32,122.47,32,79.75A56,56,0,0,1,88,24h80A56,56,0,0,1,224,79.75Zm-16,0A40,40,0,0,0,168,40H88A40,40,0,0,0,48,79.76c0,40.55,7.51,71.4,13.85,90.14,11.05,32.66,23,43.37,26.61,46C91.57,174.67,105.59,152,128,152s36.45,22.71,39.49,63.94h0c3.6-2.59,15.57-13.26,26.66-46C200.49,151.16,208,120.31,208,79.76Z"></path>
+        </svg>
+    </div>
+    <span style="flex:1;">EDC Clinic Assistant</span>
+    <button onclick="window.parent.postMessage('close-chat','*')" style="background:none;border:none;color:white;font-size:24px;cursor:pointer;">✕</button>
 </div>
 
 <div id="msgs">
 <div class="msg ai">
-สวัสดีค่ะ 👋 ยินดีต้อนรับสู่ EDC Clinic  
+สวัสดีค่ะ 👋 ยินดีต้อนรับสู่ EDC Clinic 
 สามารถสอบถามข้อมูลการรักษา นัดหมาย หรือรายละเอียดแพทย์ได้เลยค่ะ
 </div>
 </div>
@@ -51,35 +78,29 @@ button#btn { background:#0F766E; color:white; border:none; padding:14px 24px; bo
 </div>
 
 <script>
+/* ... (Keep your existing script logic as is) ... */
 const msgs = document.getElementById('msgs');
 const input = document.getElementById('in');
 const btn = document.getElementById('btn');
 
 const PROXY = "https://edc.x10-aistudio.workers.dev/api";
-const BASE_DOMAIN = "https://shopdemo6.capchat.live"; // ✅ FIXED DOMAIN (KEPT)
 
 async function ask() {
     const text = input.value.trim();
     if (!text) return;
-
     appendMsg(text, 'user');
     input.value = '';
     const loader = showDots();
-
     try {
         const res = await fetch(PROXY, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text })
         });
-
         const data = await res.json();
         loader.remove();
-
         let reply = data.text || "ขออภัยค่ะ ไม่สามารถตอบกลับได้ในขณะนี้";
-
         appendMsg(reply, 'ai');
-
     } catch (err) {
         loader.remove();
         appendMsg("ขออภัยค่ะ ระบบขัดข้อง กรุณาลองใหม่อีกครั้ง", 'ai');
@@ -90,11 +111,9 @@ function appendMsg(text, role) {
     const wrapper = document.createElement('div');
     wrapper.style.display = 'flex';
     wrapper.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start';
-
     const bubble = document.createElement('div');
     bubble.className = 'msg ' + role;
     bubble.innerText = text;
-
     wrapper.appendChild(bubble);
     msgs.appendChild(wrapper);
     msgs.scrollTop = msgs.scrollHeight;
@@ -111,7 +130,6 @@ function showDots() {
 
 btn.onclick = ask;
 input.onkeydown = (e) => { if (e.key === 'Enter') ask(); };
-
 </script>
 
 </body>
