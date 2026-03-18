@@ -138,18 +138,35 @@ async function ask() {
     }
 }
 
-function appendMsg(text, role) {
-    const wrapper = document.createElement('div');
-    wrapper.style.display = 'flex';
-    wrapper.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start';
-    const bubble = document.createElement('div');
-    bubble.className = 'msg ' + role;
-    bubble.innerText = text;
-    wrapper.appendChild(bubble);
-    msgs.appendChild(wrapper);
-    msgs.scrollTop = msgs.scrollHeight;
+function appendMsg(text, side) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `msg ${side}`;
+
+    // --- ส่วนที่เพิ่มเพื่อซ่อน Code จากสายตาลูกค้า ---
+    // ใช้ Regular Expression ในการลบทิ้ง (ไม่ว่า AI จะพิมพ์มาบรรทัดไหน)
+    let cleanText = text
+        .replace(/BOOKING_REQUEST:\s*true/gi, '') 
+        .replace(/SERVICE_CARDS:\s*\[.*?\]/gi, '') 
+        .trim();
+    // -------------------------------------------
+
+    // ถ้าลบแล้วไม่มีข้อความเหลือเลย (ป้องกันฟองสบู่วางเปล่า) 
+    // ให้ข้ามการแสดงผลไปเลย หรือใส่ข้อความสำรอง
+    if (!cleanText && side === 'ai') return;
+
+    msgDiv.innerText = cleanText; 
+    messages.appendChild(msgDiv);
+    messages.scrollTop = messages.scrollHeight;
+
+    // (Option) ถ้าอยากทำอะไรต่อเมื่อมีการจองสำเร็จ
+    if (text.includes('BOOKING_REQUEST: true')) {
+        console.log("ระบบหลังบ้านรับทราบการจองของคุณนิพนธ์แล้ว");
+    }
 }
 
+
+
+    
 function showDots() {
     const d = document.createElement('div');
     d.className = 'dots';
