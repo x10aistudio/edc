@@ -101,25 +101,40 @@ const btn = document.getElementById('btn');
 
 const PROXY = "https://edc.x10-aistudio.workers.dev/api";
 
+// เพิ่มตัวแปรเก็บประวัติไว้ด้านบนสุดของ Script
+let chatHistory = []; 
+
 async function ask() {
     const text = input.value.trim();
     if (!text) return;
+
     appendMsg(text, 'user');
     input.value = '';
     const loader = showDots();
+
+    // เก็บข้อความผู้ใช้ลง History
+    chatHistory.push({ role: "user", parts: [{ text: text }] });
+
     try {
         const res = await fetch(PROXY, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text })
+            // ส่ง history ทั้งหมดไปให้ AI
+            body: JSON.stringify({ history: chatHistory }) 
         });
+        
         const data = await res.json();
         loader.remove();
-        let reply = data.text || "ขออภัยค่ะ ไม่สามารถตอบกลับได้ในขณะนี้";
+        
+        let reply = data.text || "ขออภัยค่ะ ระบบขัดข้อง";
         appendMsg(reply, 'ai');
+
+        // เก็บคำตอบ AI ลง History
+        chatHistory.push({ role: "model", parts: [{ text: reply }] });
+
     } catch (err) {
         loader.remove();
-        appendMsg("ขออภัยค่ะ ระบบขัดข้อง กรุณาลองใหม่อีกครั้ง", 'ai');
+        appendMsg("ขออภัยค่ะ ระบบขัดข้อง", 'ai');
     }
 }
 
